@@ -93,6 +93,10 @@ MATCH (aslab:ASLAB) -[:ASLAB_LABOLATORY]->(labolatory:LABOLATORY)
 WHERE labolatory.id="LAB2" OR labolatory.name=labolatory.id="LAB1"
 RETURN aslab, labolatory
 
+///////////////////////////////////////////////
+// ================ MERGE ================== //
+///////////////////////////////////////////////
+
 //using merge we can't make node duplicate
 MERGE (aslab:ASLAB { name: "sugeng", age: 18, id: 1 })
 MERGE (aslab:ASLAB { name: "sugeng", age: 18, id: 1 }) // this not gonna work cause we already have node with same name, age, and id
