@@ -23,6 +23,7 @@ RETURN aslab.name, aslab.id
 /////////////////////////////////////////////////////////////
 
 //select aslab name with specific name
+//this is using for read the data
 MATCH (aslab:ASLAB)
 WHERE aslab.name = "Naryo"
 RETURN aslab
@@ -90,4 +91,19 @@ RETURN aslab, lab
 //select relationship with parameter
 MATCH (aslab:ASLAB) -[:ASLAB_LABOLATORY]->(labolatory:LABOLATORY)
 WHERE labolatory.id="LAB2" OR labolatory.name=labolatory.id="LAB1"
+RETURN aslab, labolatory
+
+//using merge we can't make node duplicate
+MERGE (aslab:ASLAB { name: "sugeng", age: 18, id: 1 })
+MERGE (aslab:ASLAB { name: "sugeng", age: 18, id: 1 }) // this not gonna work cause we already have node with same name, age, and id
+
+//but when we using CREATE we can make node duplicate
+CREATE (aslab:ASLAB { name: "rudi", age: 19, id: 100 })
+CREATE (aslab:ASLAB { name: "rudi", age: 19, id: 100 })
+//it will make 2 node with same name, age, and id
+
+//create node and relation with MERGE and CREATE
+MERGE (aslab:ASLAB { name: "bana", age: 18, id: 101 })
+MERGE (labolatory:LABOLATORY { name: "JARKOM", id: "LAB3" })
+MERGE (aslab)-[ AS :ASLAB_LABOLATORY]->(labolatory)
 RETURN aslab, labolatory
